@@ -1,23 +1,52 @@
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+
 import './App.css';
 
 function App() {
+const [pokemonList, setPokemonList] = useState([]);
+
+{/*Same way how to use api using a function
+const getPokemons = () => {
+axios
+     .get("https://pokeapi.co/api/v2/pokemon?limit=807")
+     .then((response) => { 
+      setPokemonList(response.data.results)
+
+     })
+     .catch((err)=> console.log(err));
+}
+
+useEffect(() => {
+getPokemons();
+}, [])
+*/}
+
+
+useEffect(() => {
+axios
+     .get("https://pokeapi.co/api/v2/pokemon?limit=807")
+     .then((response) => { 
+      setPokemonList(response.data.results)
+
+     })
+     .catch((err)=> console.log(err));
+}, [])
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <h1>Axios Pokemon-Apis</h1>
+     {/*Use the map method to iterate through each pokemon in my pokemonList  */}
+<ul>
+{pokemonList.map((pokemon, index) => 
+
+(<li key={index}>{pokemon.name}</li>
+))}
+
+</ul>
+
+
     </div>
   );
 }
